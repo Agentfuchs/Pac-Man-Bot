@@ -76,7 +76,7 @@ namespace PacManBot.Services
 
             if (count > 0)
             {
-                _log.Debug($"Removed {count} expired game{"s".If(count > 1)}");
+                _log.Debug($"Удалено {count} забытых игр{"s".If(count > 1)}");
             }
 
             if (removedChannelGames.Count is > 0 and < 10)
@@ -95,7 +95,7 @@ namespace PacManBot.Services
 
         private void RestartBot(object state)
         {
-            _log.Info("Restarting");
+            _log.Info("Перезагрузка");
             _app.StopApplication(ExitCodes.ScheduledReboot);
         }
     }

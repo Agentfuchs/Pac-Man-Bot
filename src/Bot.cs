@@ -116,21 +116,21 @@ namespace PacManBot
 
         private Task OnClientErrored(DiscordClient shard, ClientErrorEventArgs args)
         {
-            _log.Exception($"On {args.EventName} handler", args.Exception);
+            _log.Exception($"В {args.EventName} обработчик", args.Exception);
             return Task.CompletedTask;
         }
 
 
         private Task OnSocketErrored(DiscordClient shard, SocketErrorEventArgs args)
         {
-            _log.Warning($"On shard {shard.ShardId} - {args.Exception.GetType().Name}: {args.Exception.Message}");
+            _log.Warning($"В куске {shard.ShardId} - {args.Exception.GetType().Name}: {args.Exception.Message}");
             return Task.CompletedTask;
         }
 
 
         private Task OnReady(DiscordClient shard, ReadyEventArgs args)
         {
-            _ = Task.Run(() => OnReadyAsync(shard).LogExceptions(_log, $"On ready {shard.ShardId}"));
+            _ = Task.Run(() => OnReadyAsync(shard).LogExceptions(_log, $"Готово {shard.ShardId}"));
             return Task.CompletedTask;
         }
 
@@ -149,8 +149,8 @@ namespace PacManBot
             {
                 _schedule.StartTimers();
                 await _client.UpdateStatusAsync(
-                    new DiscordActivity($"with you!", ActivityType.Playing), UserStatus.Online, DateTime.Now);
-                _log.Info($"All Shards ready");
+                    new DiscordActivity($"пакмена!", ActivityType.Playing), UserStatus.Online, DateTime.Now);
+                _log.Info($"Все части готовы");
             }
 
             if (File.Exists(Files.ManualRestart))
@@ -166,12 +166,12 @@ namespace PacManBot
                         File.Delete(Files.ManualRestart);
                         var message = await channel.GetMessageAsync(id[1]);
                         if (message is not null) await message.ModifyAsync(CustomEmoji.Check);
-                        _log.Info("Resumed after manual restart");
+                        _log.Info("Возобновлено после ручного перезапуска");
                     }
                 }
                 catch (Exception e)
                 {
-                    _log.Exception("After manual restart", e);
+                    _log.Exception("После ручного перезапуска", e);
                     if (File.Exists(Files.ManualRestart) && e is not IOException) File.Delete(Files.ManualRestart);
                 }
             }
@@ -180,7 +180,7 @@ namespace PacManBot
 
         private Task OnJoinedGuild(DiscordClient shard, GuildCreateEventArgs args)
         {
-            _ = Task.Run(() => UpdateGuildCountAsync().LogExceptions(_log, "While updating guild count"));
+            _ = Task.Run(() => UpdateGuildCountAsync().LogExceptions(_log, "Обновление количества серверов"));
             return Task.CompletedTask;
         }
 
@@ -213,7 +213,7 @@ namespace PacManBot
             {
                 await _discordBotList.UpdateStats(guilds, _client.ShardClients.Count);
                 _lastGuildCountUpdate = DateTime.Now;
-                _log.Info($"Guild count updated to {guilds}");
+                _log.Info($"Количество серверов обновлено до {guilds}");
             }
         }
     }

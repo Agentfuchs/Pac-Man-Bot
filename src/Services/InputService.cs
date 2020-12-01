@@ -111,7 +111,7 @@ namespace PacManBot.Services
                 }
                 catch (Exception e)
                 {
-                    _log.Exception($"In {message.Channel.DebugName()}", e);
+                    _log.Exception($"В {message.Channel.DebugName()}", e);
                 }
             }
 
@@ -137,7 +137,7 @@ namespace PacManBot.Services
                 if (game is null) return Task.CompletedTask;
 
                 _ = Task.Run(() => ExecuteReactionGameInputAsync(game, message, user, emoji)
-                    .LogExceptions(_log, $"During input \"{emoji.GetDiscordName()}\" in {message.Channel.DebugName()}"));
+                    .LogExceptions(_log, $"Выполняя ввод \"{emoji.GetDiscordName()}\" в {message.Channel.DebugName()}"));
 
                 if (message.Channel?.Guild is not null)
                 {
@@ -151,7 +151,7 @@ namespace PacManBot.Services
 
         private Task OnCommandExecuted(CommandsNextExtension sender, CommandExecutionEventArgs args)
         {
-            _log.Debug($"Executed {args.Command.Name} for {args.Context.User.DebugName()} in {args.Context.Channel.DebugName()}");
+            _log.Debug($"Выполнено {args.Command.Name} для {args.Context.User.DebugName()} в {args.Context.Channel.DebugName()}");
             return Task.CompletedTask;
         }
 
@@ -163,7 +163,7 @@ namespace PacManBot.Services
             switch (args.Exception)
             {
                 case ArgumentException e when e.Message.Contains("suitable overload"):
-                    await ctx.RespondAsync($"Invalid command parameters for `{args.Command?.Name}`");
+                    await ctx.RespondAsync($"Неверные параметры команды для `{args.Command?.Name}`");
                     return;
 
                 case ChecksFailedException e:
@@ -176,52 +176,52 @@ namespace PacManBot.Services
                         case RequireBotPermissionsAttribute r when ctx.Guild is not null:
                             var curPerms = ctx.Channel.PermissionsFor(ctx.Guild.CurrentMember);
                             var perms = (r.Permissions ^ curPerms) & r.Permissions; // missing
-                            await ctx.RespondAsync($"This bot requires the permission to {perms.ToPermissionString().ToLower()}!");
+                            await ctx.RespondAsync($"Этому боту требуется разрешение на {perms.ToPermissionString().ToLower()}!");
                             return;
 
                         case RequireUserPermissionsAttribute r when ctx.Guild is not null:
                             curPerms = ctx.Channel.PermissionsFor(ctx.Member);
                             perms = (r.Permissions ^ curPerms) & r.Permissions; // missing
-                            await ctx.RespondAsync($"You need the permission to {perms.ToPermissionString().ToLower()} to use this command.");
+                            await ctx.RespondAsync($"Вам нужно разрешение на {perms.ToPermissionString().ToLower()} что-бы использовать эту команду.");
                             return;
 
                         case RequireDirectMessageAttribute _:
                         case RequireBotPermissionsAttribute _ when ctx.Guild is null:
                         case RequireUserPermissionsAttribute _ when ctx.Guild is null:
-                            await ctx.RespondAsync("This command can only be used in DMs with the bot.");
+                            await ctx.RespondAsync("Эту команду можно использовать только в личных сообщениях с ботом..");
                             return;
 
                         case RequireGuildAttribute _:
-                            await ctx.RespondAsync("This command can only be used in a guild.");
+                            await ctx.RespondAsync("Эту команду можно использовать только на сервере.");
                             return;
 
                         default:
-                            await ctx.RespondAsync($"Can't execute command: {e.Message}");
+                            await ctx.RespondAsync($"Не возможно выполнить команду: {e.Message}");
                             return;
                     }
 
                 case CommandNotFoundException e when args.Command?.Name == "help":
-                    await ctx.RespondAsync($"The command `{e.CommandName}` doesn't exist!");
+                    await ctx.RespondAsync($"Комманда `{e.CommandName}` не существует!");
                     return;
 
                 case UnauthorizedException _ when args.Command?.Name == "help":
-                    await ctx.RespondAsync($"This bot requires the permission to use embeds!");
+                    await ctx.RespondAsync($"Этому боту требуется разрешение на использование вставок!");
                     return;
 
                 case UnauthorizedException e when args.Command?.Name != "help":
-                    await ctx.RespondAsync($"Something went wrong: The bot is missing permissions to perform this action!");
-                    _log.Exception($"Bot is missing permissions in command {args.Command?.Name}", e);
+                    await ctx.RespondAsync($"Что-то пошло не так: The bot is missing permissions to perform this action!");
+                    _log.Exception($"У бота отсутствуют разрешения в команде {args.Command?.Name}", e);
                     return;
 
                 case JsonReaderException:
-                    await ctx.RespondAsync("Something went wrong! Discord gave an internal error. Please try again.");
-                    _log.Warning("Invalid JSON content in Discord message");
+                    await ctx.RespondAsync("Что-то пошло не так! Discord выдал внутреннюю ошибку. Пожалуйста, попробуйте еще раз.");
+                    _log.Warning("Неправильное содержание JSON в сообщении Discord");
                     return;
 
                 default:
-                    _log.Exception($"While executing {args.Command?.Name} for {ctx.User?.DebugName()} " +
-                        $"in {ctx.Channel.DebugName()}", args.Exception);
-                    try { await ctx.RespondAsync($"Something went wrong! {args.Exception?.Message}"); }
+                    _log.Exception($"При выполнении {args.Command?.Name} для {ctx.User?.DebugName()} " +
+                        $"в {ctx.Channel.DebugName()}", args.Exception);
+                    try { await ctx.RespondAsync($"Что-то пошло не так! {args.Exception?.Message}"); }
                     catch (UnauthorizedException) { }
                     return;
             }
@@ -239,13 +239,13 @@ namespace PacManBot.Services
                     {
                         _lastGuildUsersDownload[guild.Id] = DateTime.Now;
                         await guild.RequestMembersAsync();
-                        _log.Debug($"Downloaded users from {guild.DebugName()}");
+                        _log.Debug($"Пользователи загружены из {guild.DebugName()}");
                     }
                 }
             }
             catch (Exception e)
             {
-                _log.Exception($"Downloading users for guild {guild?.DebugName()}", e);
+                _log.Exception($"Загрузка пользователей для сервера {guild?.DebugName()}", e);
             }
         }
 
@@ -298,14 +298,14 @@ namespace PacManBot.Services
             if (game is null || !game.IsInput(message.Content, message.Author.Id)) return false;
 
             Task.Run(() => ExecuteMessageGameInputAsync(game, message)
-                .LogExceptions(_log, $"During input \"{message.Content}\" in {game.Channel.DebugName()}"));
+                .LogExceptions(_log, $"Во время ввода \"{message.Content}\" в {game.Channel.DebugName()}"));
 
             return true;
         }
 
         private async Task ExecuteMessageGameInputAsync(IMessagesGame game, DiscordMessage inputMsg)
         {
-            _log.Debug($"Input {inputMsg.Content} by {inputMsg.Author.DebugName()} in {inputMsg.Channel.DebugName()}");
+            _log.Debug($"Ввод {inputMsg.Content} от {inputMsg.Author.DebugName()} в {inputMsg.Channel.DebugName()}");
 
             var gameMessage = await game.GetMessageAsync();
             await game.InputAsync(inputMsg.Content, inputMsg.Author.Id);
@@ -328,7 +328,7 @@ namespace PacManBot.Services
             if (message is null) return; // oof
 
             var guild = message.Channel.Guild;
-            _log.Debug($"Input {emoji.GetDiscordName()} by {user.DebugName()} in {message.Channel.DebugName()}");
+            _log.Debug($"Ввод {emoji.GetDiscordName()} от {user.DebugName()} в {message.Channel.DebugName()}");
 
             await game.InputAsync(emoji, user.Id);
 

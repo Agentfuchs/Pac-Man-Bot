@@ -74,7 +74,7 @@ namespace PacManBot
             if (missingFields.Count > 0)
             {
                 throw new InvalidOperationException(
-                    $"The contents file is missing a value for: {missingFields.Select(x => x.Name).JoinString(", ")}");
+                    $"В файле содержимого отсутствует значение для: {missingFields.Select(x => x.Name).JoinString(", ")}");
             }
 
             Content = cont;
