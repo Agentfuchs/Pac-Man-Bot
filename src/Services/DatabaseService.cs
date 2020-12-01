@@ -40,7 +40,7 @@ namespace PacManBot.Services
             using var db = MakeDbContext();
             db.Database.EnsureCreated();
             db.Prefixes.Find((ulong)0);
-            log.Info("Database ready");
+            log.Info("База данных готова");
         }
 
 
@@ -155,7 +155,7 @@ namespace PacManBot.Services
                 db.SaveChanges();
             }
 
-            _log.Debug($"New scoreboard entry: {entry}");
+            _log.Debug($"Новая строка в таблице рекордов: {entry}");
         }
 
 
@@ -173,7 +173,7 @@ namespace PacManBot.Services
             if (userId is not null) scores = scores.Where(x => x.UserId == userId);
 
             var list = scores.OrderByDescending(x => x.Score).Skip(start).Take(amount).ToList();
-            _log.Debug($"Grabbed {list.Count} score entries");
+            _log.Debug($"Получено {list.Count} записей таблицы рекордов");
             return list;
         }
     }

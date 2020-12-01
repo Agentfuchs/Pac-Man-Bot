@@ -114,12 +114,12 @@ namespace PacManBot.Services
             if (game is IStoreableGame sGame && File.Exists(sGame.GameFile()))
             {
                 try { File.Delete(sGame.GameFile()); }
-                catch (IOException e) { _log.Exception($"Couldn't delete {sGame.GameFile()}", e); }
+                catch (IOException e) { _log.Exception($"Не удалось удалить {sGame.GameFile()}", e); }
             }
 
             if (success && doLog)
             {
-                _log.Debug($"Removed {game.GetType().Name} at {game.IdentifierId()}");
+                _log.Debug($"Удалено {game.GetType().Name} в {game.IdentifierId()}");
             }
         }
 
@@ -145,7 +145,7 @@ namespace PacManBot.Services
             if (!Directory.Exists(Files.GameFolder))
             {
                 Directory.CreateDirectory(Files.GameFolder);
-                _log.Warning($"Created missing directory \"{Files.GameFolder}\"");
+                _log.Warning($"Создана отсутствующая директория \"{Files.GameFolder}\"");
                 return;
             }
 
@@ -167,14 +167,14 @@ namespace PacManBot.Services
                 catch (Exception e)
                 {
                     _log.Log(
-                        $"Couldn't load game at {file}: {(firstFail ? e.ToString() : e.Message)}",
+                        $"Не удалось загрузить игру в {file}: {(firstFail ? e.ToString() : e.Message)}",
                         firstFail ? LogLevel.Error : LogLevel.Trace);
                     fail++;
                     firstFail = false;
                 }
             }
 
-            _log.Info($"Loaded {_games.Count + _userGames.Count} games{$" with {fail} errors".If(fail > 0)}");
+            _log.Info($"Загружено {_games.Count + _userGames.Count} игр{$" с {fail} ошибками".If(fail > 0)}");
         }
     }
 }
