@@ -19,7 +19,7 @@ using PacManBot.Utils;
 namespace PacManBot
 {
     /// <summary>
-    /// Program that sets up and starts the bot.
+    /// Программа для настройки и запуска бота
     /// </summary>
     public static class Program
     {
@@ -35,7 +35,7 @@ namespace PacManBot
             // Load configuration
             foreach (string requiredFile in new[] { Files.Config, Files.Contents })
                 if (!File.Exists(requiredFile))
-                    throw new InvalidOperationException($"Missing required file {requiredFile}: Bot can't run");
+                    throw new InvalidOperationException($"Отсутствует необходимый {requiredFile}: Бот не может запустится.");
 
             BotConfig config;
             try
@@ -45,16 +45,16 @@ namespace PacManBot
             }
             catch (JsonReaderException e)
             {
-                throw new InvalidOperationException("A required file contains invalid JSON. Correct the mistake and try again.", e);
+                throw new InvalidOperationException("Требуемый файл содержит недопустимый JSON. Исправьте ошибку и попробуйте еще раз.", e);
             }
 
             if (string.IsNullOrWhiteSpace(config.discordToken))
-                throw new InvalidOperationException($"Missing {nameof(config.discordToken)} in {Files.Config}: Bot can't run");
+                throw new InvalidOperationException($"Отсутствует {nameof(config.discordToken)} в {Files.Config}: Бот не может запустится.");
 
 
-            // Set up and run the bot
+            // Настраивает и запускает бота
             var log = new LoggingService(config);
-            log.Critical($"Pac-Man Bot v{Version}");
+            log.Critical($"Pac-Man бот v{Version}");
 
             return Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(lb => lb.ClearProviders().AddProvider(log))
