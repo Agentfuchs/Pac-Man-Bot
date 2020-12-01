@@ -34,7 +34,7 @@
     dotnet publish PacManBot.csproj --runtime% RUNTIME% --configuration Release
 
 Где `% RUNTIME%` - это система, для которой вы будете компилировать, например, linux-x64 или win-x64. Для Raspberry Pi используйте linux-arm.
-Команда сгенерирует папку bin / Release / net5.0 /% RUNTIME% / publish /, содержащую всю программу.
+Команда сгенерирует папку bin /Release/net5.0/% RUNTIME%/publish/, содержащую всю программу.
 
 
 ### Использование эмоций с сервера
