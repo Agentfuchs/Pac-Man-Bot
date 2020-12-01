@@ -4,50 +4,48 @@
 ![Discord Bots](https://discordbots.org/api/widget/lib/398127484983443468.svg?noavatar=true) ![Discord Bots](https://discordbots.org/api/widget/owner/398127484983443468.svg?noavatar=true)  
 [![paypal](https://img.shields.io/badge/Donate-PayPal-green.svg)](http://paypal.me/samrux)  
 
-Play the best chat games for Discord: Pac-Man, Uno, Hangman, Pets and more! Works in a server with friends or in direct messages with the bot.  
-The objective is to bring the most enterntainment to you and your group, with the least amount of hassle and spam possible.
+Играйте в лучшие чат-игры для Discord: Pac-Man, Uno, Hangman, Pets и другие! Работает на сервере с друзьями или в личных переписках с ботом.
+Цель состоит в том, чтобы доставить больше удовольствия вам и вашей группе с наименьшим количеством хлопот и спама.
 
-Features the following games:  
-* Uno: Play with up to 10 friends and bots in the classic Uno card game.  
-* Hangman: Everyone has to guess the random word, or a word chosen by you!
-* Wakagotchi: Enjoy caring for a pet in a Discord-based tamagotchi clone.  
-* ReactionRPG: Battle monsters and become stronger, or challenge your friends to battle - Enjoy this simple chat RPG!  
-* Tic-Tac-Toe, Connect Four: Challenge your friends or the bot itself.  
-* Code Break: Uncover the secret code in this public puzzle game.
-* Minesweeper: A basic rendition of minesweeper using the spoiler text feature.
-* Rubik's Cube: Attempt to solve a cube in chat form. Seriously.
-* Pac-Man: Turn-based controls in a simplistic yet faithful recreation of the arcade game. The original PacManBot game.
+Особенности следующих игр:
+* Uno: играйте с 10 друзьями и ботами в классической карточной игре Uno.
+* Hangman: каждый должен угадать случайное слово или выбранное вами слово!
+* Вакагочи: наслаждайтесь уходом за питомцем в клоне тамагочи на основе Discord.
+* ReactionRPG: сражайтесь с монстрами и становитесь сильнее или бросайте вызов своим друзьям на битву - наслаждайтесь этой простой ролевой игрой в чате!
+* Tic-Tac-Toe, Connect Four: бросьте вызов своим друзьям или самому боту.
+* Code Break: разгадайте секретный код в этой игре-головоломке.
+* Сапер: версия сапёра с использованием функции спойлера.
+* Кубик Рубика: попытка собрать куб в форме чата. Шутки в сторону.
+* Pac-Man: пошаговое управление в упрощенном, но верном воспроизведении аркадной игры. Оригинальная игра PacManBot.
 
-[**Bot invite link here**](http://bit.ly/pacman-bot)  
-[**Support server here**](https://discord.gg/hGHnfda)  
+[**Сервер поддержки тут**](https://discord.gg/hGHnfda)  
 
 &nbsp;
 
-## Compiling Pac-Man Bot
+## Компиляция
 
-Should you want to maintain a custom fork of Pac-Man Bot, here are the main steps.
+Если вы хотите скомпилировать Pac-Man Bot, вот основные шаги.
  
-To be able to compile the bot, you'll need to install the [.NET 5.0 SDK here](https://dotnet.microsoft.com/download/dotnet/5.0). In Windows, Visual Studio should install it for you.  
+Чтобы скомпилировать бота, вам необходимо установить [.NET 5.0 SDK здесь](https://dotnet.microsoft.com/download/dotnet/5.0). В Windows Visual Studio должна установить его за вас. 
 
-Before compiling, you need to add the NuGet package of the DSharpPlus library, by first adding the nuget source: https://nuget.emzi0767.com/ . If you're using an IDE like Visual Studio or Rider, you can add it through there.
-To compile, use the `Publish.bat` which contains a command such as this one:  
+Перед компиляцией вам необходимо добавить пакет NuGet библиотеки DSharpPlus, предварительно добавив источник nuget: https://nuget.emzi0767.com/. Если вы используете IDE, например Visual Studio или Rider, вы можете добавить DSharpPlus через нее.
+Для компиляции используйте файл `Publish.bat`, который содержит эту команду:
 
-    dotnet publish PacManBot.csproj --runtime %RUNTIME% --configuration Release
+    dotnet publish PacManBot.csproj --runtime% RUNTIME% --configuration Release
 
-Where `%RUNTIME%` is the system you'll be building for, like `linux-x64` or `win-x64`. For a Raspberry Pi, use `linux-arm`.  
-The command will generate a `bin/Release/net5.0/%RUNTIME%/publish/` folder containing the entire program.  
+Где `% RUNTIME%` - это система, для которой вы будете компилировать, например, linux-x64 или win-x64. Для Raspberry Pi используйте linux-arm.
+Команда сгенерирует папку bin / Release / net5.0 /% RUNTIME% / publish /, содержащую всю программу.
 
 
-### Using different emotes
+### Использование эмоций с сервера
 
-I recommend using my own copies of the emotes in the [Pac-Man Bot server](https://discord.gg/hGHnfda), which your bot can join if you ask.  
-If you instead want to use your own copy of the emotes, here are the steps:
+Я рекомендую использовать свои собственные эмоций на [сервере Pac-Man Bot](https://discord.gg/hGHnfda).
 
-1. Grab the emote images from the [_Resources/Emotes/](https://github.com/OrchidAlloy/Pac-Man-Bot/tree/master/_Resources/Emotes) folder.  
-2. Upload them to a Discord server that your bot has access to.  
-3. Obtain all of their codes. You can do this quickly using the bot's 'emotes' developer command.
-4. Modify your `src/Constants/CustomEmoji.cs` file with all the new codes.  
-5. You can then build the bot again and test if the emotes are displaying correctly.
+1. Возьмите изображения эмоций из папки [_Resources/Emotes/](https://github.com/OrchidAlloy/Pac-Man-Bot/tree/master/_Resources/Emotes).  
+2. Загрузите их на сервер Discord, к которому у вашего бота есть доступ.
+3. Получите все их коды. Вы можете сделать это быстро, используя команду разработчика бота «emotes».
+4. Измените ваш файл  `src/Constants/CustomEmoji.cs` добавив все новые коды. 
+5. Затем вы можете снова собрать бота и проверить, правильно ли отображаются эмоции.
 
 &nbsp;  
 &nbsp;  
