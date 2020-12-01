@@ -106,7 +106,7 @@ namespace PacManBot.Games
             return new DiscordEmbedBuilder()
             {
                 Title = GameName,
-                Description = DateTime.Now - LastPlayed > Expiry ? "Game timed out" : "Game cancelled",
+                Description = DateTime.Now - LastPlayed > Expiry ? "Время игры вышло" : "Игра отменена",
                 Color = Player.None.Color,
             };
         }
