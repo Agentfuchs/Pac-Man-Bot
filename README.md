@@ -39,7 +39,7 @@
 
 ### Использование эмоций с сервера
 
-Я рекомендую использовать свои собственные эмоций на [сервере Pac-Man Bot](https://discord.gg/hGHnfda).
+Я рекомендую использовать эти эмоций которые есть на [сервере Pac-Man Bot](https://discord.gg/hGHnfda).
 
 1. Возьмите изображения эмоций из папки [_Resources/Emotes/](https://github.com/OrchidAlloy/Pac-Man-Bot/tree/master/_Resources/Emotes).  
 2. Загрузите их на сервер Discord, к которому у вашего бота есть доступ.
