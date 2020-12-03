@@ -442,15 +442,15 @@ namespace PacManBot.Games.Concrete
 
                 // Add text to the side
                 var info = new List<string>(new[] {
-                    $"┌{"───< Slim Mode >───┐".If(slimDisplay)}",
-                    $"│ #Time: {Time}",
-                    $"│ #Score: {score}{$" +{score - oldScore}".If(score - oldScore != 0)}",
-                    $"│ {$"#Power: {pacMan.power}".If(pacMan.power > 0)}",
+                    $"┌{"───────────────────┐".If(slimDisplay)}",
+                    $"│ #Время: {Time}",
+                    $"│ #Счёт: {score}{$" +{score - oldScore}".If(score - oldScore != 0)}",
+                    $"│ {$"#Спец. Сила: {pacMan.power}".If(pacMan.power > 0)}",
                     $"│ ",
-                    $"│ {CharPlayer} - Pac-Man{$": {pacMan.dir.ToString().ToLower()}".If(pacMan.dir != Dir.None)}",
+                    $"│ {CharPlayer} - Пак-Мен{$": {pacMan.dir.ToString().ToLower()}".If(pacMan.dir != Dir.None)}",
                     $"│ ", // 7-10: ghosts
                     $"│ ",
-                    $"│ {($"{FruitChar}{FruitChar} - Fruit: {fruitTimer}").If(fruitTimer > 0)}",
+                    $"│ {($"{FruitChar}{FruitChar} - Фрукт: {fruitTimer}").If(fruitTimer > 0)}",
                     $"└"
                 });
 
@@ -496,7 +496,7 @@ namespace PacManBot.Games.Concrete
 
                     default:
                         display.Insert(0, "```css\n");
-                        display.Append($"\n#Fastforward: {(fastForward ? "Active" : "Disabled")}");
+                        display.Append($"\n#Быстрый шаг: {(fastForward ? "Активен" : "Отключён")}");
                         break;
                 }
                 display.Append("```");
@@ -506,17 +506,17 @@ namespace PacManBot.Games.Concrete
                     display.Append("```diff");
                     switch (State)
                     {
-                        case GameState.Win: display.Append("\n+You won!"); break;
-                        case GameState.Lose: display.Append("\n-You lost!"); break;
-                        case GameState.Cancelled: display.Append($"\n-Game has been ended."); break;
+                        case GameState.Win: display.Append("\n+Вы выйграли!"); break;
+                        case GameState.Lose: display.Append("\n-Вы проиграли!"); break;
+                        case GameState.Cancelled: display.Append($"\n-Игра завершена."); break;
                     }
-                    if (custom) display.Append("\n*** Custom game ***");
+                    if (custom) display.Append("\n*** Мод карта ***");
                     display.Append("```");
                 }
 
                 if (showHelp && State == GameState.Active && Time < 5)
                 {
-                    display.Append($"\n(Confused? React with {CustomEmoji.Help} for help)");
+                    display.Append($"\n(Запутались? Нажмите на {CustomEmoji.Help} для информации)");
                 }
 
 
@@ -524,11 +524,11 @@ namespace PacManBot.Games.Concrete
             }
             catch (Exception e)
             {
-                Log.Exception($"Displaying game in {Channel.DebugName()}", e);
+                Log.Exception($"Отображение игры в канале {Channel.DebugName()}", e);
                 return new ValueTask<string>(
-                    $"```There was an error displaying the game. {"Make sure your custom map is valid. ".If(custom)}" +
-                    $"If this problem persists, please contact the author of the bot using the " +
-                    $"{Storage.GetPrefix(Channel)}feedback command.```");
+                    $"```Произошла ошибка. {"Убедитесь что ваша карта правельная. ".If(custom)}" +
+                    $"Если проблема повторится сообщите автору при помощи этой" +
+                    $"комманды {Storage.GetPrefix(Channel)}.```");
             }
         }
 
